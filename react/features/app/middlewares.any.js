@@ -52,4 +52,6 @@ import '../video-layout/middleware';
 import '../video-quality/middleware';
 import '../videosipgw/middleware';
 
+import '../planned-meetings/middleware';
+
 import './middleware';

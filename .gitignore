@@ -3,6 +3,7 @@
 deploy-local.sh
 libs/
 all.css
+transcripts-link
 *css.map
 .remote-sync.json
 .sync-config.cson

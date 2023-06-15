@@ -1,7 +1,7 @@
 // @flow
 
 import { Platform } from 'react-native';
-import { updateApplicationContext, watchEvents } from 'react-native-watch-connectivity';
+import * as watch from 'react-native-watch-connectivity';
 
 import { appNavigate } from '../../app/actions';
 import { APP_WILL_MOUNT } from '../../base/app';
@@ -70,12 +70,18 @@ watchOSEnabled && MiddlewareRegistry.register(store => next => action => {
  * @returns {void}
  */
 function _appWillMount({ dispatch, getState }) {
-    watchEvents.addListener('reachability', reachable => {
+    watch.subscribeToWatchReachability((error, reachable) => {
         dispatch(setWatchReachable(reachable));
         _updateApplicationContext(getState);
     });
 
-    watchEvents.addListener('message', message => {
+    watch.subscribeToMessages((error, message) => {
+        if (error) {
+            logger.error('watch.subscribeToMessages error:', error);
+
+            return;
+        }
+
         const {
             command,
             sessionID
@@ -179,7 +185,7 @@ function _updateApplicationContext(stateful) {
     }
 
     try {
-        updateApplicationContext({
+        watch.updateApplicationContext({
             conferenceTimestamp,
             conferenceURL: getCurrentConferenceUrl(state),
             micMuted: _isAudioMuted(state),

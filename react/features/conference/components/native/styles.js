@@ -4,13 +4,13 @@ import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
 export const INSECURE_ROOM_NAME_LABEL_COLOR = BaseTheme.palette.actionDanger;
 
-const TITLE_BAR_BUTTON_SIZE = 24;
+const NAVBAR_BUTTON_SIZE = 24;
 
 
 /**
- * The styles of the safe area view that contains the title bar.
+ * The styles of the safe area view that contains the navigation bar.
  */
-const titleBarSafeView = {
+const navBarSafeView = {
     left: 0,
     position: 'absolute',
     right: 0,
@@ -41,7 +41,7 @@ export default {
 
     headerNavigationButton: {
         height: BaseTheme.spacing[6],
-        marginTop: 20,
+        marginTop: BaseTheme.spacing[3],
         width: BaseTheme.spacing[6]
     },
 
@@ -53,11 +53,14 @@ export default {
         flexDirection: 'row'
     },
 
-    titleBarButtonContainer: {
+    inviteButtonContainer: {
         borderRadius: 3,
         height: BaseTheme.spacing[7],
+        position: 'absolute',
         marginTop: BaseTheme.spacing[1],
         marginRight: BaseTheme.spacing[1],
+        top: 0,
+        right: 0,
         zIndex: 1,
         width: BaseTheme.spacing[7]
     },
@@ -66,7 +69,7 @@ export default {
         iconStyle: {
             color: BaseTheme.palette.icon01,
             padding: 12,
-            fontSize: TITLE_BAR_BUTTON_SIZE
+            fontSize: NAVBAR_BUTTON_SIZE
         },
         underlayColor: BaseTheme.spacing.underlay01
     },
@@ -95,35 +98,36 @@ export default {
     },
 
     pipButtonContainer: {
-        '&:not(:empty)': {
-            borderRadius: 3,
-            height: BaseTheme.spacing[7],
-            marginTop: BaseTheme.spacing[1],
-            marginLeft: BaseTheme.spacing[1],
-            zIndex: 1,
-            width: BaseTheme.spacing[7]
-        }
+        borderRadius: 3,
+        height: BaseTheme.spacing[7],
+        position: 'absolute',
+        marginTop: BaseTheme.spacing[1],
+        marginLeft: BaseTheme.spacing[1],
+        top: 0,
+        left: 0,
+        zIndex: 1,
+        width: BaseTheme.spacing[7]
     },
 
     pipButton: {
         iconStyle: {
             color: BaseTheme.palette.icon01,
             padding: 12,
-            fontSize: TITLE_BAR_BUTTON_SIZE
+            fontSize: NAVBAR_BUTTON_SIZE
         },
         underlayColor: BaseTheme.spacing.underlay01
     },
 
-    titleBarSafeViewColor: {
-        ...titleBarSafeView,
+    navBarSafeViewColor: {
+        ...navBarSafeView,
         backgroundColor: BaseTheme.palette.uiBackground
     },
 
-    titleBarSafeViewTransparent: {
-        ...titleBarSafeView
+    navBarSafeViewTransparent: {
+        ...navBarSafeView
     },
 
-    titleBarWrapper: {
+    navBarWrapper: {
         alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
@@ -131,42 +135,25 @@ export default {
         justifyContent: 'center'
     },
 
-    alwaysOnTitleBar: {
-        padding: 4,
-        paddingRight: 0,
-        borderRadius: 6,
-        backgroundColor: 'rgba(0, 0, 0, .5)',
-        marginLeft: BaseTheme.spacing[2],
-        flexDirection: 'row',
-        alignSelf: 'flex-start',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: BaseTheme.spacing[2]
-    },
-
-    expandedLabelWrapper: {
-        zIndex: 1
-    },
-
     roomTimer: {
         color: BaseTheme.palette.text01,
-        ...BaseTheme.typography.bodyShortBold,
-        paddingHorizontal: 8,
-        paddingVertical: 6,
-        textAlign: 'center'
+        fontSize: 12,
+        fontWeight: '400',
+        paddingHorizontal: 8
     },
 
     roomTimerView: {
         backgroundColor: BaseTheme.palette.action02,
         borderRadius: 3,
+        height: 28,
         justifyContent: 'center',
         minWidth: 50
     },
 
     roomName: {
         color: BaseTheme.palette.text01,
-        ...BaseTheme.typography.bodyShortBold,
-        paddingVertical: 6
+        fontSize: 14,
+        fontWeight: '400'
     },
 
     roomNameView: {
@@ -174,16 +161,15 @@ export default {
         borderBottomLeftRadius: 3,
         borderTopLeftRadius: 3,
         flexShrink: 1,
+        height: 28,
         justifyContent: 'center',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        maxWidth: 168
     },
 
     roomNameWrapper: {
         flexDirection: 'row',
-        marginRight: 10,
-        marginLeft: 8,
-        flexShrink: 1,
-        flexGrow: 1
+        marginHorizontal: 35
     },
 
     /**
@@ -203,20 +189,6 @@ export default {
 
     insecureRoomNameLabel: {
         backgroundColor: INSECURE_ROOM_NAME_LABEL_COLOR
-    },
-
-    raisedHandsCountLabel: {
-        backgroundColor: BaseTheme.palette.warning02,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginLeft: BaseTheme.spacing[0],
-        marginBottom: BaseTheme.spacing[0],
-        marginRight: BaseTheme.spacing[1]
-    },
-
-    raisedHandsCountLabelText: {
-        color: BaseTheme.palette.uiBackground,
-        paddingLeft: BaseTheme.spacing[2]
     }
 };
 

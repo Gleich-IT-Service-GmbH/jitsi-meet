@@ -29,47 +29,46 @@ type Props = {
  * @augments BaseApp
  */
 export default class PrejoinApp extends BaseApp<Props> {
-    /**
-     * The deferred for the initialisation {{promise, resolve, reject}}.
-     */
-    _init: Object;
+    _init: Promise<*>;
 
     /**
      * Navigates to {@link Prejoin} upon mount.
      *
      * @returns {void}
      */
-    async componentDidMount() {
-        await super.componentDidMount();
+    componentDidMount() {
+        super.componentDidMount();
 
-        const { store } = this.state;
-        const { dispatch } = store;
-        const { styleType } = this.props;
+        this._init.then(async () => {
+            const { store } = this.state;
+            const { dispatch } = store;
+            const { styleType } = this.props;
 
-        super._navigate({
-            component: PrejoinThirdParty,
-            props: {
-                className: styleType
-            }
-        });
+            super._navigate({
+                component: PrejoinThirdParty,
+                props: {
+                    className: styleType
+                }
+            });
 
-        const { startWithAudioMuted, startWithVideoMuted } = store.getState()['features/base/settings'];
+            const { startWithAudioMuted, startWithVideoMuted } = store.getState()['features/base/settings'];
 
-        dispatch(setConfig({
-            prejoinConfig: {
-                enabled: true
-            },
-            startWithAudioMuted,
-            startWithVideoMuted
-        }));
+            dispatch(setConfig({
+                prejoinConfig: {
+                    enabled: true
+                },
+                startWithAudioMuted,
+                startWithVideoMuted
+            }));
 
-        const { tryCreateLocalTracks, errors } = createPrejoinTracks();
+            const { tryCreateLocalTracks, errors } = createPrejoinTracks();
 
-        const tracks = await tryCreateLocalTracks;
+            const tracks = await tryCreateLocalTracks;
 
-        batch(() => {
-            dispatch(initPrejoin(tracks, errors));
-            dispatch(makePrecallTest(getConferenceOptions(store.getState())));
+            batch(() => {
+                dispatch(initPrejoin(tracks, errors));
+                dispatch(makePrecallTest(getConferenceOptions(store.getState())));
+            });
         });
     }
 

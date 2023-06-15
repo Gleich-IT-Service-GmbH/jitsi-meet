@@ -11,7 +11,8 @@ import { parseURIString, safeDecodeURIComponent } from '../base/util';
  * @returns {Array<Object>}
  */
 export function toDisplayableList(recentList) {
-    return (
+
+    const tmp = (
         [ ...recentList ].reverse()
             .map(item => {
                 return {
@@ -22,6 +23,8 @@ export function toDisplayableList(recentList) {
                     url: item.conference
                 };
             }));
+
+    return tmp;
 }
 
 /**

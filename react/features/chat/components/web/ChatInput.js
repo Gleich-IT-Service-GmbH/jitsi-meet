@@ -119,6 +119,14 @@ class ChatInput extends Component<Props, State> {
         const smileysPanelClassName = `${this.state.showSmileysPanel
             ? 'show-smileys' : 'hide-smileys'} smileys-panel`;
 
+        const jwtStore = APP.store.getState()["features/base/jwt"];
+        if (!jwtStore || (jwtStore && !jwtStore.jwt)) {
+            return(
+                <>
+                </>
+            )
+        }
+
         return (
             <div className = { `chat-input-container${this.state.message.trim().length ? ' populated' : ''}` }>
                 <div id = 'chat-input' >

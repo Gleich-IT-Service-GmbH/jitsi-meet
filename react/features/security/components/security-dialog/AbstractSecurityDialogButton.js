@@ -56,7 +56,13 @@ export default class AbstractSecurityDialogButton<P: Props, S:*>
      * @returns {void}
      */
     _handleClick() {
-        const { _locked } = this.props;
+        const { _locked, handleClick } = this.props;
+
+        if (handleClick) {
+            handleClick();
+
+            return;
+        }
 
         sendAnalytics(createToolbarEvent('toggle.security', { enable: !_locked }));
         this._handleClickSecurityButton();

@@ -10,12 +10,12 @@ import TabIcon from './components/TabIcon';
 export const INACTIVE_TAB_COLOR = BaseTheme.palette.tab01Disabled;
 
 export const tabBarOptions = {
-    tabBarActiveTintColor: BaseTheme.palette.icon01,
-    tabBarInactiveTintColor: INACTIVE_TAB_COLOR,
-    tabBarLabelStyle: {
+    activeTintColor: BaseTheme.palette.icon01,
+    inactiveTintColor: INACTIVE_TAB_COLOR,
+    labelStyle: {
         fontSize: 12
     },
-    tabBarStyle: {
+    style: {
         backgroundColor: BaseTheme.palette.screen01Header
     }
 };

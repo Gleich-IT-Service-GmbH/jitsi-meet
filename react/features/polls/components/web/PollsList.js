@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import { Icon, IconChatUnread } from '../../../base/icons';
 
-import PollItem from './PollItem';
+import { PollItem } from '.';
 
 const PollsList = () => {
     const { t } = useTranslation();

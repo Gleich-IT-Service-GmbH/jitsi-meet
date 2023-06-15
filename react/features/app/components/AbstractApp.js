@@ -31,22 +31,21 @@ export type Props = {
  * @abstract
  */
 export class AbstractApp extends BaseApp<Props, *> {
-    /**
-     * The deferred for the initialisation {{promise, resolve, reject}}.
-     */
-    _init: Object;
+    _init: Promise<*>;
 
     /**
      * Initializes the app.
      *
      * @inheritdoc
      */
-    async componentDidMount() {
-        await super.componentDidMount();
+    componentDidMount() {
+        super.componentDidMount();
 
-        // If a URL was explicitly specified to this React Component, then
-        // open it; otherwise, use a default.
-        this._openURL(toURLString(this.props.url) || this._getDefaultURL());
+        this._init.then(() => {
+            // If a URL was explicitly specified to this React Component, then
+            // open it; otherwise, use a default.
+            this._openURL(toURLString(this.props.url) || this._getDefaultURL());
+        });
     }
 
     /**
@@ -54,23 +53,23 @@ export class AbstractApp extends BaseApp<Props, *> {
      *
      * @inheritdoc
      */
-    async componentDidUpdate(prevProps: Props) {
+    componentDidUpdate(prevProps: Props) {
         const previousUrl = toURLString(prevProps.url);
         const currentUrl = toURLString(this.props.url);
         const previousTimestamp = prevProps.timestamp;
         const currentTimestamp = this.props.timestamp;
 
-        await this._init.promise;
+        this._init.then(() => {
+            // Deal with URL changes.
 
-        // Deal with URL changes.
+            if (previousUrl !== currentUrl
 
-        if (previousUrl !== currentUrl
-
-            // XXX Refer to the implementation of loadURLObject: in
-            // ios/sdk/src/JitsiMeetView.m for further information.
-            || previousTimestamp !== currentTimestamp) {
-            this._openURL(currentUrl || this._getDefaultURL());
-        }
+                    // XXX Refer to the implementation of loadURLObject: in
+                    // ios/sdk/src/JitsiMeetView.m for further information.
+                    || previousTimestamp !== currentTimestamp) {
+                this._openURL(currentUrl || this._getDefaultURL());
+            }
+        });
     }
 
     /**

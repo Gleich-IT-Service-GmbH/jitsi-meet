@@ -23,5 +23,6 @@ export default class HangupButton extends AbstractHangupButton<Props, *> {
      */
     _doHangup() {
         api.executeCommand('hangup');
+        window.close();
     }
 }

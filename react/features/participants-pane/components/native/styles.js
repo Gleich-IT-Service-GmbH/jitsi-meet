@@ -113,9 +113,7 @@ export default {
     admitAllParticipantsActionButtonLabel: {
         ...BaseTheme.typography.heading6,
         color: BaseTheme.palette.link01,
-        textTransform: 'capitalize',
-        marginRight: BaseTheme.spacing[5],
-        marginTop: BaseTheme.spacing[3]
+        textTransform: 'capitalize'
     },
 
     participantContainer: {
@@ -169,6 +167,12 @@ export default {
         paddingTop: BaseTheme.spacing[1]
     },
 
+    participantsPane: {
+        backgroundColor: BaseTheme.palette.ui01,
+        flex: 1,
+        justifyContent: 'center'
+    },
+
     participantStatesContainer: {
         display: 'flex',
         flexDirection: 'row',
@@ -195,15 +199,12 @@ export default {
         color: BaseTheme.palette.uiBackground
     },
 
-    lobbyListContent: {
-        height: '20%'
+    lobbyListContainer: {
+        position: 'relative'
     },
 
     lobbyListDescription: {
-        fontSize: 15,
-        color: BaseTheme.palette.text01,
-        fontWeight: 'bold',
-        marginTop: BaseTheme.spacing[2]
+        ...participantListDescription
     },
 
     lobbyListDetails: {
@@ -212,12 +213,13 @@ export default {
         flexDirection: 'row',
         justifyContent: 'space-between',
         overflow: 'hidden',
+        paddingLeft: BaseTheme.spacing[3],
         position: 'relative',
         width: '100%'
     },
 
     meetingListContainer: {
-        height: '60%'
+        flex: 1
     },
 
     meetingListDescription: {
@@ -225,28 +227,11 @@ export default {
         marginLeft: BaseTheme.spacing[3]
     },
 
-    collapsibleRoomContainer: {
-        height: '30%'
-    },
-
-    participantsPaneContainer: {
-        backgroundColor: BaseTheme.palette.ui01,
-        flex: 1,
-        justifyContent: 'center'
-    },
-
-    participantsPaneFooter: {
+    footer: {
         alignItems: 'center',
-        backgroundColor: BaseTheme.palette.ui01,
-        bottom: 0,
         flexDirection: 'row',
-        height: BaseTheme.spacing[12],
-        left: 0,
-        right: 0,
-        position: 'absolute',
-        paddingBottom: BaseTheme.spacing[2],
-        paddingLeft: BaseTheme.spacing[3],
-        paddingRight: BaseTheme.spacing[3]
+        paddingHorizontal: BaseTheme.spacing[3],
+        paddingVertical: BaseTheme.spacing[2]
     },
 
     headerCloseIcon: {
@@ -255,16 +240,13 @@ export default {
 
     inviteButton: {
         backgroundColor: BaseTheme.palette.action01,
-        borderRadius: BaseTheme.shape.borderRadius,
-        height: BaseTheme.spacing[7],
+        marginBottom: BaseTheme.spacing[4],
         marginLeft: BaseTheme.spacing[3],
-        marginRight: BaseTheme.spacing[3],
-        marginVertical: BaseTheme.spacing[3]
+        marginRight: BaseTheme.spacing[3]
     },
 
     inviteLabel: {
-        fontSize: 15,
-        lineHeight: 30,
+        ...BaseTheme.typography.labelButtonLarge,
         textTransform: 'capitalize'
     },
 
@@ -348,10 +330,9 @@ export default {
         borderStyle: 'solid',
         borderColor: BaseTheme.palette.border02,
         backgroundColor: BaseTheme.palette.uiBackground,
-        borderRadius: BaseTheme.shape.borderRadius,
+        borderRadius: 6,
         marginLeft: BaseTheme.spacing[3],
-        marginRight: BaseTheme.spacing[3],
-        marginBottom: BaseTheme.spacing[4]
+        marginRight: BaseTheme.spacing[3]
     },
 
     clearableInputFocus: {

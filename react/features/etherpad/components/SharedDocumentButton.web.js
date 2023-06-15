@@ -9,6 +9,7 @@ import { connect } from '../../base/redux';
 import { AbstractButton, type AbstractButtonProps } from '../../base/toolbox/components';
 import { toggleDocument } from '../../etherpad/actions';
 
+
 type Props = AbstractButtonProps & {
 
     /**
@@ -58,7 +59,13 @@ class SharedDocumentButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        const { _editing, dispatch } = this.props;
+        const { _editing, dispatch, handleClick } = this.props;
+
+        if (handleClick) {
+            handleClick();
+
+            return;
+        }
 
         sendAnalytics(createToolbarEvent(
             'toggle.etherpad',

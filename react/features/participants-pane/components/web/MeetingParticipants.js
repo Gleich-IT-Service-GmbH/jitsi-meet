@@ -107,8 +107,7 @@ function MeetingParticipants({
             {showInviteButton && <InviteButton />}
             <ClearableInput
                 onChange = { setSearchString }
-                placeholder = { t('participantsPane.search') }
-                value = { searchString } />
+                placeholder = { t('participantsPane.search') } />
             <div>
                 <MeetingParticipantItems
                     askUnmuteText = { askUnmuteText }

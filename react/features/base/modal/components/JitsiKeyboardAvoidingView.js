@@ -1,6 +1,6 @@
 // @flow
 
-import { useHeaderHeight } from '@react-navigation/elements';
+import { useHeaderHeight } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import {
     KeyboardAvoidingView,

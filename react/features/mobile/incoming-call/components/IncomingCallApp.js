@@ -43,22 +43,24 @@ export default class IncomingCallApp extends BaseApp<Props> {
      *
      * @returns {void}
      */
-    async componentDidMount() {
-        await super.componentDidMount();
+    componentDidMount() {
+        super.componentDidMount();
 
-        const { dispatch } = this.state.store;
-        const {
-            callerAvatarURL: avatarUrl,
-            callerName: name,
-            hasVideo
-        } = this.props;
+        this._init.then(() => {
+            const { dispatch } = this.state.store;
+            const {
+                callerAvatarURL: avatarUrl,
+                callerName: name,
+                hasVideo
+            } = this.props;
 
-        dispatch(incomingCallReceived({
-            avatarUrl,
-            hasVideo,
-            name
-        }));
+            dispatch(incomingCallReceived({
+                avatarUrl,
+                hasVideo,
+                name
+            }));
 
-        super._navigate({ component: IncomingCallPage });
+            super._navigate({ component: IncomingCallPage });
+        });
     }
 }

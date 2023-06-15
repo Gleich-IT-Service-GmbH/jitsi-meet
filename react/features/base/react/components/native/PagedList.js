@@ -92,20 +92,6 @@ class PagedList extends Component<Props, State> {
     render() {
         const { disabled } = this.props;
         const pages = this.props.pages.filter(({ component }) => component);
-        let children;
-
-        if (pages.length > 1) {
-            children = this._renderPagedList(disabled);
-        } else {
-            children = React.createElement(
-
-                // $FlowExpectedError
-                /* type */ pages[0].component,
-                /* props */ {
-                    disabled,
-                    style: styles.pagedList
-                });
-        }
 
         return (
             <View
@@ -114,9 +100,16 @@ class PagedList extends Component<Props, State> {
                     disabled ? styles.pagedListContainerDisabled : null
                 ] }>
                 {
+                    pages.length > 1
+                        ? this._renderPagedList(disabled)
+                        : React.createElement(
 
-                    // $FlowExpectedError
-                    children
+                            // $FlowExpectedError
+                            /* type */ pages[0].component,
+                            /* props */ {
+                                disabled,
+                                style: styles.pagedList
+                            })
                 }
             </View>
         );

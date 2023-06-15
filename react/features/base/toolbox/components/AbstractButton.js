@@ -2,29 +2,17 @@
 
 import React, { Component } from 'react';
 
-import { NOTIFY_CLICK_MODE } from '../../../toolbox/constants';
 import { combineStyles } from '../../styles';
 
 import type { Styles } from './AbstractToolboxItem';
 import ToolboxItem from './ToolboxItem';
 
-export type Props = {|
+export type Props = {
 
     /**
      * Function to be called after the click handler has been processed.
      */
     afterClick: ?Function,
-
-    /**
-     * The button's key.
-     */
-    buttonKey?: string,
-
-    /**
-     * An extra class name to be added at the end of the element's class name
-     * in order to enable custom styling.
-     */
-    customClass?: string,
 
     /**
      * Extra styles which will be applied in conjunction with `styles` or
@@ -35,13 +23,7 @@ export type Props = {|
     /**
      * External handler for click action.
      */
-    handleClick?: Function,
-
-    /**
-     * Notify mode for `toolbarButtonClicked` event -
-     * whether to only notify or to also prevent button click routine.
-     */
-    notifyMode?: string,
+     handleClick?: Function,
 
     /**
      * Whether to show the label or not.
@@ -67,9 +49,7 @@ export type Props = {|
      * Whether this button is visible or not.
      */
     visible: boolean
-|};
-
-declare var APP: Object;
+};
 
 /**
  * Default style for disabled buttons.
@@ -152,17 +132,6 @@ export default class AbstractButton<P: Props, S: *> extends Component<P, S> {
 
         // Bind event handlers so they are only bound once per instance.
         this._onClick = this._onClick.bind(this);
-    }
-
-    /**
-     * Helper function to be implemented by subclasses, which should be used
-     * to handle a key being down.
-     *
-     * @protected
-     * @returns {void}
-     */
-    _onKeyDown() {
-        // To be implemented by subclass.
     }
 
     /**
@@ -279,29 +248,17 @@ export default class AbstractButton<P: Props, S: *> extends Component<P, S> {
     _onClick: (*) => void;
 
     /**
-     * Handles clicking / pressing the button.
+     * Handles clicking / pressing the button, and toggles the audio mute state
+     * accordingly.
      *
      * @param {Object} e - Event.
      * @private
      * @returns {void}
      */
     _onClick(e) {
-        const { afterClick, handleClick, notifyMode, buttonKey } = this.props;
+        const { afterClick } = this.props;
 
-        if (typeof APP !== 'undefined' && notifyMode) {
-            APP.API.notifyToolbarButtonClicked(
-                buttonKey, notifyMode === NOTIFY_CLICK_MODE.PREVENT_AND_NOTIFY
-            );
-        }
-
-        if (notifyMode !== NOTIFY_CLICK_MODE.PREVENT_AND_NOTIFY) {
-            if (handleClick) {
-                handleClick();
-            }
-
-            this._handleClick();
-        }
-
+        this._handleClick();
         afterClick && afterClick(e);
 
         // blur after click to release focus from button to allow PTT.
@@ -318,6 +275,7 @@ export default class AbstractButton<P: Props, S: *> extends Component<P, S> {
         const props = {
             ...this.props,
             accessibilityLabel: this.accessibilityLabel,
+            disabled: this._isDisabled(),
             elementAfter: this._getElementAfter(),
             icon: this._getIcon(),
             label: this._getLabel(),
@@ -330,7 +288,6 @@ export default class AbstractButton<P: Props, S: *> extends Component<P, S> {
             <ToolboxItem
                 disabled = { this._isDisabled() }
                 onClick = { this._onClick }
-                onKeyDown = { this._onKeyDown }
                 { ...props } />
         );
     }

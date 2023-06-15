@@ -452,16 +452,16 @@ class RecordingController {
         return result;
     }
 
-    _changeState: (symbol) => void;
+    _changeState: (Symbol) => void;
 
     /**
      * Changes the current state of {@code RecordingController}.
      *
      * @private
-     * @param {symbol} newState - The new state.
+     * @param {Symbol} newState - The new state.
      * @returns {void}
      */
-    _changeState(newState: symbol) {
+    _changeState(newState: Symbol) {
         if (this._state !== newState) {
             logger.log(`state change: ${this._state.toString()} -> `
                 + `${newState.toString()}`);

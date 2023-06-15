@@ -490,3 +490,17 @@ export function getRaiseHandsQueue(stateful: Object | Function): Array<Object> {
 export function hasRaisedHand(participant: Object): boolean {
     return Boolean(participant && participant.raisedHandTimestamp);
 }
+
+
+
+export function getPartyMembersByIds(stateful: Object | Function) {
+    const remoteParticipants = toState(stateful)['features/base/participants'].remote;
+
+    if (remoteParticipants.size <= 0)
+        return [];
+
+    return [...remoteParticipants]
+            .map(v => v[1])
+            .filter(v => Boolean(v && v.jwtid))
+            .map(v => v.id);
+}

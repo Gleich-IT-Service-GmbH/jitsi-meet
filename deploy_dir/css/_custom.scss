@@ -1,0 +1,35 @@
+.text-center {
+    text-align: center;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.mt-10px {
+    margin-top: 10px;
+}
+
+.mb-10px {
+    margin-bottom: 10px;
+}
+
+.meetings-list .update-meeting {
+    display: none;
+    margin-right: 72px;
+    position: absolute;
+}
+
+.meetings-list .item:focus .update-meeting,
+.meetings-list .item:focus-within .update-meeting,
+.meetings-list .item:hover .update-meeting {
+    display: block;
+}
+
+.meetings-list .update-meeting>svg {
+    fill: #0074e0;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {  
+    filter: invert(1);
+}

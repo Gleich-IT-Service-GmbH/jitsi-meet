@@ -6,15 +6,7 @@ import { Icon } from '../../icons';
 import { Tooltip } from '../../tooltip';
 
 import AbstractToolboxItem from './AbstractToolboxItem';
-import type { Props as AbstractToolboxItemProps } from './AbstractToolboxItem';
-
-type Props = AbstractToolboxItemProps & {
-
-    /**
-    * On key down handler.
-    */
-    onKeyDown: Function
-};
+import type { Props } from './AbstractToolboxItem';
 
 /**
  * Web implementation of {@code AbstractToolboxItem}.
@@ -61,7 +53,6 @@ export default class ToolboxItem extends AbstractToolboxItem<Props> {
             disabled,
             elementAfter,
             onClick,
-            onKeyDown,
             showLabel,
             tooltipPosition,
             toggled
@@ -73,7 +64,6 @@ export default class ToolboxItem extends AbstractToolboxItem<Props> {
             'aria-label': this.accessibilityLabel,
             className: className + (disabled ? ' disabled' : ''),
             onClick: disabled ? undefined : onClick,
-            onKeyDown: disabled ? undefined : onKeyDown,
             onKeyPress: this._onKeyPress,
             tabIndex: 0,
             role: showLabel ? 'menuitem' : 'button'

@@ -53,17 +53,8 @@ export const NOTIFICATION_TYPE_PRIORITIES = {
  */
 export const NOTIFICATION_ICON = {
     ...NOTIFICATION_TYPE,
-    MESSAGE: 'message',
-    PARTICIPANT: 'participant',
-    PARTICIPANTS: 'participants'
+    MESSAGE: 'message'
 };
-
-/**
- * The identifier of the lobby notification.
- *
- * @type {string}
- */
-export const LOBBY_NOTIFICATION_ID = 'LOBBY_NOTIFICATION';
 
 /**
  * The identifier of the raise hand notification.

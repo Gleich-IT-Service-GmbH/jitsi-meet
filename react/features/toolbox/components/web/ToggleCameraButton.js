@@ -41,7 +41,13 @@ class ToggleCameraButton extends AbstractButton<Props, any> {
      * @returns {void}
      */
     _handleClick() {
-        const { dispatch } = this.props;
+        const { dispatch, handleClick } = this.props;
+
+        if (handleClick) {
+            handleClick();
+
+            return;
+        }
 
         dispatch(toggleCamera());
     }

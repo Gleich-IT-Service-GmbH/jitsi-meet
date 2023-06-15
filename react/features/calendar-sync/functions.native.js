@@ -128,12 +128,12 @@ export function _fetchCalendarEntries(
  */
 function _ensureCalendarAccess(promptForPermission, dispatch) {
     return new Promise((resolve, reject) => {
-        RNCalendarEvents.checkPermissions()
+        RNCalendarEvents.authorizationStatus()
             .then(status => {
                 if (status === 'authorized') {
                     resolve(true);
                 } else if (promptForPermission) {
-                    RNCalendarEvents.requestPermissions()
+                    RNCalendarEvents.authorizeEventStore()
                         .then(result => {
                             dispatch(setCalendarAuthorization(result));
                             resolve(result === 'authorized');

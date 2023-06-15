@@ -88,12 +88,9 @@ export default function LobbyParticipants() {
                 <div className = { classes.heading }>
                     {t('participantsPane.headings.lobby', { count: participants.length })}
                 </div>
-                {
-                    participants.length > 1
-                    && <div
-                        className = { classes.link }
-                        onClick = { admitAll }>{t('lobby.admitAll')}</div>
-                }
+                <div
+                    className = { classes.link }
+                    onClick = { admitAll }>{t('lobby.admitAll')}</div>
             </div>
             <LobbyParticipantItems
                 openDrawerForParticipant = { openDrawerForParticipant }

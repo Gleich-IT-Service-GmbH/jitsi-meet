@@ -113,6 +113,8 @@ class PreMeetingScreen extends PureComponent<Props> {
             backgroundSize: 'cover'
         } : {};
 
+        const jwtStore = APP.store.getState()["features/base/jwt"];
+
         return (
             <div className = { containerClassName }>
                 <div style = { style }>
@@ -126,7 +128,7 @@ class PreMeetingScreen extends PureComponent<Props> {
                             { children }
                             { _buttons.length && <Toolbox toolbarButtons = { _buttons } /> }
                             { skipPrejoinButton }
-                            { showDeviceStatus && <DeviceStatus /> }
+                            { (showDeviceStatus && jwtStore && jwtStore.jwt ) && <DeviceStatus /> }
                         </div>
                     </div>
                 </div>

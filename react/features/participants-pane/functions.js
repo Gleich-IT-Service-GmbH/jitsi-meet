@@ -14,7 +14,8 @@ import {
     isParticipantModerator,
     getLocalParticipant,
     getRemoteParticipantsSorted,
-    getRaiseHandsQueue
+    getRaiseHandsQueue,
+    getPartyMembersByIds
 } from '../base/participants/functions';
 import { toState } from '../base/redux';
 import { normalizeAccents } from '../base/util/strings';
@@ -225,20 +226,23 @@ export function getSortedParticipantIds(stateful: Object | Function): Array<stri
     }
 
     const dominant = [];
-    const dominantId = dominantSpeaker?.id;
     const local = remoteRaisedHandParticipants.has(id) ? [] : [ id ];
 
-    // In case dominat speaker has raised hand, keep the order in the raised hand queue.
-    // In case they don't have raised hand, goes first in the participants list.
-    if (dominantId && dominantId !== id && !remoteRaisedHandParticipants.has(dominantId)) {
-        reorderedParticipants.delete(dominantId);
-        dominant.push(dominantId);
+    // Remove dominant speaker.
+    if (dominantSpeaker && dominantSpeaker.id !== id) {
+        remoteRaisedHandParticipants.delete(dominantSpeaker.id);
+        reorderedParticipants.delete(dominantSpeaker.id);
+        dominant.push(dominantSpeaker.id);
     }
+
+    // Get all party members.
+    const partyMembers = getPartyMembersByIds(stateful);
 
     // Move self and participants with raised hand to the top of the list.
     return [
         ...dominant,
         ...local,
+        ...partyMembers,
         ...Array.from(remoteRaisedHandParticipants.keys()),
         ...Array.from(reorderedParticipants.keys())
     ];

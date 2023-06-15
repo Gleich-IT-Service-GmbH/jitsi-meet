@@ -64,6 +64,8 @@ class DeepLinkingDesktopPage<P : Props> extends Component<P> {
         sendAnalytics(
             createDeepLinkingPageEvent(
                 'displayed', 'DeepLinkingDesktop', { isMobileBrowser: false }));
+
+        this.props.dispatch(openWebApp());
     }
 
     /**

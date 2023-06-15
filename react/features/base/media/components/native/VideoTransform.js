@@ -1,5 +1,6 @@
 // @flow
 
+import type { PanResponderInstance } from 'PanResponder';
 import React, { Component } from 'react';
 import { PanResponder, PixelRatio, View } from 'react-native';
 import { type Dispatch } from 'redux';
@@ -118,12 +119,12 @@ class VideoTransform extends Component<Props, State> {
     /**
      * The gesture handler object.
      */
-    gestureHandlers: Object;
+    gestureHandlers: PanResponderInstance;
 
     /**
      * The initial distance of the fingers on pinch start.
      */
-    initialDistance: ?number;
+    initialDistance: number;
 
     /**
      * The initial position of the finger on touch start.
@@ -627,10 +628,7 @@ class VideoTransform extends Component<Props, State> {
             this._onGesture('press');
         }
         delete this.initialDistance;
-        this.initialPosition = {
-            x: 0,
-            y: 0
-        };
+        delete this.initialPosition;
     }
 
     _onStartShouldSetPanResponder: () => boolean;

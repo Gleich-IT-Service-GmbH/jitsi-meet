@@ -8,6 +8,7 @@ import { connect } from '../../../../../connection';
 import { toJid } from '../../../base/connection/functions';
 import { Dialog } from '../../../base/dialog';
 import { translate, translateToHTML } from '../../../base/i18n';
+import { setJWT } from '../../../base/jwt';
 import { JitsiConnectionErrors } from '../../../base/lib-jitsi-meet';
 import { connect as reduxConnect } from '../../../base/redux';
 import {
@@ -148,8 +149,40 @@ class LoginDialog extends Component<Props, State> {
         const { password, username } = this.state;
         const jid = toJid(username, configHosts);
 
-        if (conference) {
-            dispatch(authenticateAndUpgradeRole(jid, password, conference));
+        if (conference || conference === undefined) { //< Quick hack 
+            fetch('/token',
+            {
+                body: JSON.stringify({ password: password, email: username }),
+                method: 'POST'
+            })
+            .then((resp) => {
+                if (resp.ok) {
+                    return resp.json();
+                } else {
+                    this.setState({
+                        loginStarted: false
+                    });
+                }
+            })
+            .then((json) => {
+                const jwt = json.data;
+                
+                this.setState({
+                    loginStarted: false
+                });
+
+                dispatch(setJWT(jwt));
+
+                const url = new URL(window.location.href);
+                url.searchParams.set('jwt', jwt);
+
+                window.location.assign(url.toString());
+            })
+            .catch(() => {
+                this.setState({
+                    loginStarted: false
+                });
+            });
         } else {
             this.setState({
                 loginStarted: true

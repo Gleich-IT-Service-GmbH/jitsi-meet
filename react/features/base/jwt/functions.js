@@ -73,7 +73,8 @@ export function validateJwt(jwt: string) {
             exp,
             iss,
             nbf,
-            sub
+            sub,
+            add
         } = payload;
 
         // JaaS only
@@ -138,6 +139,34 @@ export function validateJwt(jwt: string) {
                     errors.push(`- Invalid feature: ${feature}`);
                 }
             });
+        }
+
+        if (!add) {
+            errors.push('- Additional data is missing')
+        } else {
+            const {
+                user,
+                group,
+                party
+            } = add
+
+            if (!group) {
+                errors.push('- Group is missing inside additional data')
+            }
+
+            if (group !== 'party' && group !== 'moderator') {
+                errors.push(`- Group value is invalid: ${group}`)
+            }
+
+            // if (group === 'party') {
+            //     if (!user) {
+            //         errors.push('- User data is missing')
+            //     }
+
+            //     if (!party) {
+            //         errors.push('- Party data is missing')
+            //     }
+            // }
         }
     } catch (e) {
         errors.push(e ? e.message : '- unspecified jwt error');

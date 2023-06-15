@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="4.4972072mm"
+   height="4.4976268mm"
+   viewBox="0 0 4.4972072 4.4976268"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="/home/edgarm/Rastergrafik.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   sodipodi:docname="user-crossed.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="31.679315"
+     inkscape:cx="3.4091646"
+     inkscape:cy="9.7539988"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient3391"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3389" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-75.860058,-97.842523)">
+    <title
+       id="title824">user-crossed</title>
+    <path
+       d="m 78.089472,100.5788 c 0.59822,0 1.794497,0.3088 1.794497,0.93754 v 0.47433 h -3.588824 v -0.47433 c 0,-0.62874 1.196274,-0.93754 1.794496,-0.93754 z m 0,-0.47433 c -0.493285,0 -0.892043,-0.419096 -0.892043,-0.937541 0,-0.518446 0.398758,-0.948483 0.892043,-0.948483 0.493286,0 0.892044,0.430214 0.892044,0.948483 0,0.518268 -0.398758,0.937541 -0.892044,0.937541 z"
+       id="path826"
+       style="stroke-width:0.216458" />
+    <path
+       id="rect2888"
+       style="stroke-width:1.0426"
+       d="m 80.372943,97.639338 0.157442,0.209894 -4.641678,4.708338 -0.190593,-0.21806 z"
+       sodipodi:nodetypes="ccccc" />
+  </g>
+</svg>

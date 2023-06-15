@@ -41,12 +41,7 @@ type Props = AudioSettingsEntryProps & {
      * Click handler for component.
      */
     onClick: Function,
-    listHeaderId: string,
-
-    /**
-    * Used to decide whether to listen to audio level changes.
-    */
-    measureAudioLevels: boolean,
+    listHeaderId: string
 }
 
 type State = {
@@ -134,9 +129,9 @@ export default class MicrophoneEntry extends Component<Props, State> {
      * @returns {void}
      */
     _startListening() {
-        const { jitsiTrack, measureAudioLevels } = this.props;
+        const { jitsiTrack } = this.props;
 
-        jitsiTrack && measureAudioLevels && jitsiTrack.on(
+        jitsiTrack && jitsiTrack.on(
             JitsiTrackEvents.TRACK_AUDIO_LEVEL_CHANGED,
             this._updateLevel);
     }
@@ -190,24 +185,12 @@ export default class MicrophoneEntry extends Component<Props, State> {
      * @inheritdoc
      */
     render() {
-        const {
-            deviceId,
-            children,
-            hasError,
-            index,
-            isSelected,
-            length,
-            jitsiTrack,
-            listHeaderId,
-            measureAudioLevels
-        } = this.props;
+
+        const { deviceId, children, hasError, index, isSelected, length, jitsiTrack, listHeaderId } = this.props;
 
         const deviceTextId: string = `choose_microphone${deviceId}`;
 
         const labelledby: string = `${listHeaderId} ${deviceTextId} `;
-
-        const className = `audio-preview-microphone ${measureAudioLevels
-            ? 'audio-preview-microphone--withmeter' : 'audio-preview-microphone--nometer'}`;
 
         return (
             <li
@@ -215,7 +198,7 @@ export default class MicrophoneEntry extends Component<Props, State> {
                 aria-labelledby = { labelledby }
                 aria-posinset = { index }
                 aria-setsize = { length }
-                className = { className }
+                className = 'audio-preview-microphone'
                 onClick = { this._onClick }
                 onKeyPress = { this._onKeyPress }
                 role = 'radio'
@@ -226,7 +209,7 @@ export default class MicrophoneEntry extends Component<Props, State> {
                     labelId = { deviceTextId }>
                     {children}
                 </AudioSettingsEntry>
-                { Boolean(jitsiTrack) && measureAudioLevels && <Meter
+                { Boolean(jitsiTrack) && <Meter
                     className = 'audio-preview-meter-mic'
                     isDisabled = { hasError }
                     level = { this.state.level } />

@@ -9,7 +9,8 @@ import JitsiStreamBackgroundEffect from './JitsiStreamBackgroundEffect';
 import createTFLiteModule from './vendor/tflite/tflite';
 import createTFLiteSIMDModule from './vendor/tflite/tflite-simd';
 const models = {
-    modelLandscape: 'libs/selfie_segmentation_landscape.tflite'
+    model96: 'libs/segm_lite_v681.tflite',
+    model144: 'libs/segm_full_v679.tflite'
 };
 
 let tflite;
@@ -17,7 +18,11 @@ let wasmCheck;
 let isWasmDisabled = false;
 
 const segmentationDimensions = {
-    modelLandscape: {
+    model96: {
+        height: 96,
+        width: 160
+    },
+    model144: {
         height: 144,
         width: 256
     }
@@ -78,7 +83,7 @@ export async function createVirtualBackgroundEffect(virtualBackground: Object, d
     }
 
     const modelBufferOffset = tflite._getModelBufferMemoryOffset();
-    const modelResponse = await fetch(models.modelLandscape);
+    const modelResponse = await fetch(wasmCheck.feature.simd ? models.model144 : models.model96);
 
     if (!modelResponse.ok) {
         throw new Error('Failed to download tflite model!');
@@ -91,7 +96,7 @@ export async function createVirtualBackgroundEffect(virtualBackground: Object, d
     tflite._loadModel(model.byteLength);
 
     const options = {
-        ...segmentationDimensions.modelLandscape,
+        ...wasmCheck.feature.simd ? segmentationDimensions.model144 : segmentationDimensions.model96,
         virtualBackground
     };
 

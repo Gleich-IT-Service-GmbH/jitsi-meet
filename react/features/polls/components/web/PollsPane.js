@@ -5,29 +5,56 @@ import React from 'react';
 import AbstractPollsPane from '../AbstractPollsPane';
 import type { AbstractProps } from '../AbstractPollsPane';
 
-import PollCreate from './PollCreate';
 import PollsList from './PollsList';
 
+import { PollCreate } from '.';
+import { useSelector } from 'react-redux';
 
 const PollsPane = (props: AbstractProps) => {
-    const { createMode, onCreate, setCreateMode, t } = props;
 
-    return createMode
-        ? <PollCreate setCreateMode = { setCreateMode } />
-        : <div className = 'polls-pane-content'>
-            <div className = { 'poll-container' } >
-                <PollsList />
-            </div>
-            <div className = 'poll-footer poll-create-footer'>
-                <button
-                    aria-label = { t('polls.create.create') }
-                    className = 'poll-button poll-button-primary'
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onClick = { onCreate } >
-                    <span>{t('polls.create.create')}</span>
-                </button>
-            </div>
-        </div>;
+    const { createMode, onCreate, setCreateMode, t } = props;
+    const jwt = useSelector(state => state['features/base/jwt']?.jwt);
+
+    const showPollResult = () => {
+        return (
+        <div className = { 'poll-container' } >
+            <PollsList />
+        </div>
+        )
+    }
+
+    const renderPoll = () => {
+        if (jwt) {
+            return (
+                createMode
+                ? <PollCreate setCreateMode = { setCreateMode } />
+                : (
+                    <div className = 'polls-pane-content'>
+                        {showPollResult()}
+                        <div className = 'poll-footer poll-create-footer'>
+                            <button
+                                aria-label = { t('polls.create.create') }
+                                className = 'poll-button poll-button-primary'
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onClick = { onCreate } >
+                                <span>{t('polls.create.create')}</span>
+                            </button>
+                        </div>
+                    </div>
+                )
+            )
+        } else {
+            return (
+                <div className = 'polls-pane-content'>
+                    {showPollResult()}
+                </div>
+            )
+        }
+    }
+
+    console.log(jwt)
+
+    return renderPoll()
 };
 
 /*

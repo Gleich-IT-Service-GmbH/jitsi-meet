@@ -38,16 +38,16 @@ const RootNavigationContainer = ({ isWelcomePageAvailable }: Props) => (
             ref = { rootNavigationRef }
             theme = { navigationContainerTheme }>
             <RootStack.Navigator
-                initialRouteName = { screen.root }>
+                initialRouteName = { screen.welcome.main }>
                 {
                     isWelcomePageAvailable
                         ? <RootStack.Screen
                             component = { WelcomePageNavigationContainer }
-                            name = { screen.root }
+                            name = { screen.welcome.main }
                             options = { drawerNavigatorScreenOptions } />
                         : <RootStack.Screen
                             component = { BlankPage }
-                            name = { screen.root } />
+                            name = { screen.welcome.main } />
                 }
                 <RootStack.Screen
                     component = { DialInSummary }

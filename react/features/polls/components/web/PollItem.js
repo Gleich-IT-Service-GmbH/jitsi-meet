@@ -18,10 +18,11 @@ type Props = {
 
 const PollItem = React.forwardRef<Props, HTMLElement>(({ pollId }: Props, ref) => {
     const showResults = useSelector(shouldShowResults(pollId));
+    const jwt = useSelector(state => state['features/base/jwt']?.jwt);
 
     return (
         <div ref = { ref }>
-            { showResults
+            { !jwt || showResults
                 ? <PollResults
                     key = { pollId }
                     pollId = { pollId } />

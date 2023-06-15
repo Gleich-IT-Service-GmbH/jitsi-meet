@@ -52,7 +52,13 @@ class TileViewButton<P: Props> extends AbstractButton<P, *> {
      * @returns {void}
      */
     _handleClick() {
-        const { _tileViewEnabled, dispatch } = this.props;
+        const { _tileViewEnabled, dispatch, handleClick } = this.props;
+
+        if (handleClick) {
+            handleClick();
+
+            return;
+        }
 
         const value = !_tileViewEnabled;
 

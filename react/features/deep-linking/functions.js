@@ -54,6 +54,8 @@ export function getDeepLinkingPage(state) {
     const { launchInWeb } = state['features/deep-linking'];
     const appScheme = typeof interfaceConfig !== 'undefined' && interfaceConfig.APP_SCHEME;
 
+    console.log('State: ' + JSON.stringify(state['features/deep-linking']))
+
     // Show only if we are about to join a conference.
     if (launchInWeb
             || !room

@@ -4,13 +4,9 @@ import BaseTheme from '../../base/ui/components/BaseTheme';
 
 
 export const drawerContentOptions = {
-    drawerActiveBackgroundColor: BaseTheme.palette.ui12,
-    drawerActiveTintColor: BaseTheme.palette.screen01Header,
-    drawerLabelStyle: {
+    activeBackgroundColor: BaseTheme.palette.ui12,
+    activeTintColor: BaseTheme.palette.screen01Header,
+    labelStyle: {
         marginLeft: BaseTheme.spacing[2]
-    },
-    drawerStyle: {
-        backgroundColor: BaseTheme.palette.ui12,
-        width: '54%'
     }
 };

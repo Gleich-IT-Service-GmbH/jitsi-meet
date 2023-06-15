@@ -26,20 +26,14 @@ class RecordingLabel extends AbstractRecordingLabel {
      * @inheritdoc
      */
     _renderLabel() {
-        let indicatorStyle = styles.indicatorStyle;
+        let indicatorStyle;
 
         switch (this.props.mode) {
         case JitsiRecordingConstants.mode.STREAM:
-            indicatorStyle = {
-                ...indicatorStyle,
-                ...styles.indicatorLive
-            };
+            indicatorStyle = styles.indicatorLive;
             break;
         case JitsiRecordingConstants.mode.FILE:
-            indicatorStyle = {
-                ...indicatorStyle,
-                ...styles.indicatorRecording
-            };
+            indicatorStyle = styles.indicatorRecording;
             break;
         default:
             // Invalid mode is passed to the component.

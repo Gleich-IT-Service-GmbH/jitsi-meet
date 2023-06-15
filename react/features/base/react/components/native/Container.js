@@ -40,8 +40,6 @@ export default class Container<P: Props> extends AbstractContainer<P> {
             touchFeedback = Boolean(onClick || onLongPress),
             underlayColor,
             visible = true,
-
-            // $FlowExpectedError
             ...props
         } = this.props;
 

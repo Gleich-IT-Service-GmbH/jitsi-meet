@@ -1,5 +1,4 @@
 export const screen = {
-    root: 'Root',
     welcome: {
         main: 'Home',
         tabs: {

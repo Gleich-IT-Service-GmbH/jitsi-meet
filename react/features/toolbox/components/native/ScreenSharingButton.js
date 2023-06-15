@@ -4,7 +4,6 @@ import React from 'react';
 import { Platform } from 'react-native';
 
 import { connect } from '../../../base/redux';
-import { isDesktopShareButtonDisabled } from '../../functions';
 
 import ScreenSharingAndroidButton from './ScreenSharingAndroidButton.js';
 import ScreenSharingIosButton from './ScreenSharingIosButton.js';
@@ -31,7 +30,7 @@ const ScreenSharingButton = props => (
  * }}
  */
 function _mapStateToProps(state): Object {
-    const disabled = state['features/base/audio-only'].enabled || isDesktopShareButtonDisabled(state);
+    const disabled = state['features/base/audio-only'].enabled;
 
     return {
         _disabled: disabled

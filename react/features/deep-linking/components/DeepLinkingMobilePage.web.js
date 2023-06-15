@@ -81,6 +81,8 @@ class DeepLinkingMobilePage extends Component<Props> {
         sendAnalytics(
             createDeepLinkingPageEvent(
                 'displayed', 'DeepLinkingMobile', { isMobileBrowser: true }));
+
+        this.props.dispatch(openWebApp());
     }
 
     /**

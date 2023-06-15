@@ -2,6 +2,7 @@
 
 import { Checkbox } from '@atlaskit/checkbox';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { isSubmitAnswerDisabled } from '../../functions';
 import AbstractPollAnswer from '../AbstractPollAnswer';
@@ -19,6 +20,8 @@ const PollAnswer = (props: AbstractProps) => {
         t
     } = props;
     const { changingVote } = poll;
+
+    const jwt = useSelector(state => state['features/base/jwt']?.jwt);
 
     return (
         <div className = 'poll-answer'>

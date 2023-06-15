@@ -164,12 +164,12 @@ export const lobbyScreenOptions = {
  * Tab bar options for chat screen.
  */
 export const chatTabBarOptions = {
-    tabBarActiveTintColor: BaseTheme.palette.screen01Header,
-    tabBarLabelStyle: {
+    activeTintColor: BaseTheme.palette.screen01Header,
+    labelStyle: {
         fontSize: BaseTheme.typography.labelRegular.fontSize
     },
-    tabBarInactiveTintColor: BaseTheme.palette.field02Disabled,
-    tabBarIndicatorStyle: {
+    inactiveTintColor: BaseTheme.palette.field02Disabled,
+    indicatorStyle: {
         backgroundColor: BaseTheme.palette.screen01Header
     }
 };

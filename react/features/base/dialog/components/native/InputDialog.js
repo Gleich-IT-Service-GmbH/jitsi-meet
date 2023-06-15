@@ -70,8 +70,7 @@ class InputDialog extends BaseDialog<Props, State> {
         super(props);
 
         this.state = {
-            fieldValue: props.initialValue,
-            submitting: false
+            fieldValue: props.initialValue
         };
 
         this._onChangeText = this._onChangeText.bind(this);

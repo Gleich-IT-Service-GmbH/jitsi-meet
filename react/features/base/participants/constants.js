@@ -70,10 +70,3 @@ export const PARTICIPANT_ROLE = {
     NONE: 'none',
     PARTICIPANT: 'participant'
 };
-
-/**
- * The audio level at which the hand will be lowered if raised.
- *
- * @type {string}
- */
-export const LOWER_HAND_AUDIO_LEVEL = 0.2;

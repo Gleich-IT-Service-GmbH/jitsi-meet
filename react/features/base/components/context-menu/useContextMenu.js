@@ -4,7 +4,12 @@ import { useCallback, useRef, useState } from 'react';
 
 import { findAncestorByClass } from '../../../participants-pane/functions';
 
-type RaiseContext = {|
+type NullProto = {
+    [key: string]: any,
+    __proto__: null
+};
+
+type RaiseContext = NullProto | {|
 
     /**
      * Target elements against which positioning calculations are made.
@@ -17,7 +22,7 @@ type RaiseContext = {|
     entity?: string | Object,
 |};
 
-const initialState = Object.freeze({});
+const initialState = Object.freeze(Object.create(null));
 
 const useContextMenu = () => {
     const [ raiseContext, setRaiseContext ] = useState < RaiseContext >(initialState);

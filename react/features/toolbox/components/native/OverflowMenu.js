@@ -8,6 +8,7 @@ import { BottomSheet, hideDialog, isDialogOpen } from '../../../base/dialog';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
 import { SharedDocumentButton } from '../../../etherpad';
+import { AudioRouteButton } from '../../../mobile/audio-mode';
 import { ParticipantsPaneButton } from '../../../participants-pane/components/native';
 import { ReactionMenu } from '../../../reactions/components';
 import { isReactionsEnabled } from '../../../reactions/functions.any';
@@ -21,6 +22,8 @@ import { TileViewButton } from '../../../video-layout';
 import styles from '../../../video-menu/components/native/styles';
 import { getMovableButtons } from '../../functions.native';
 import HelpButton from '../HelpButton';
+import MuteEveryoneButton from '../MuteEveryoneButton';
+import MuteEveryonesVideoButton from '../MuteEveryonesVideoButton';
 
 import AudioOnlyButton from './AudioOnlyButton';
 import RaiseHandButton from './RaiseHandButton';
@@ -137,13 +140,16 @@ class OverflowMenu extends PureComponent<Props, State> {
                 renderFooter = { _reactionsEnabled && !toolbarButtons.has('raisehand')
                     ? this._renderReactionMenu
                     : null }>
-                <ParticipantsPaneButton { ...topButtonProps } />
+                <AudioRouteButton { ...topButtonProps } />
+                <ParticipantsPaneButton { ...buttonProps } />
                 <AudioOnlyButton { ...buttonProps } />
                 {!_reactionsEnabled && !toolbarButtons.has('raisehand') && <RaiseHandButton { ...buttonProps } />}
                 <Divider style = { styles.divider } />
                 <SecurityDialogButton { ...buttonProps } />
                 <RecordButton { ...buttonProps } />
                 <LiveStreamButton { ...buttonProps } />
+                <MuteEveryoneButton { ...buttonProps } />
+                <MuteEveryonesVideoButton { ...buttonProps } />
                 <Divider style = { styles.divider } />
                 <SharedVideoButton { ...buttonProps } />
                 <ScreenSharingButton { ...buttonProps } />

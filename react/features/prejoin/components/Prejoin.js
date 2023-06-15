@@ -26,6 +26,11 @@ import {
 
 import DropdownButton from './DropdownButton';
 import JoinByPhoneDialog from './dialogs/JoinByPhoneDialog';
+import { openDialog } from '../../base/dialog/actions'
+import LoginDialog from '../../authentication/components/web/LoginDialog';
+import { validateJwt } from '../../base/jwt/functions';
+import { useDispatch } from 'react-redux';
+import { APP_LINK_SCHEME } from '../../base/util';
 
 type Props = {
 
@@ -145,6 +150,12 @@ class Prejoin extends Component<Props, State> {
         this._showDialogKeyPress = this._showDialogKeyPress.bind(this);
         this._onJoinKeyPress = this._onJoinKeyPress.bind(this);
         this._getExtraJoinButtons = this._getExtraJoinButtons.bind(this);
+        
+        this._onLoginButtonClick = this._onLoginButtonClick.bind(this);
+        this._onLoginKeyPress = this._onLoginKeyPress.bind(this);
+        this._renderLoginButton = this._renderLoginButton.bind(this);
+
+        this.props.updateSettings({ displayName: "Zuschauer" });
     }
     _onJoinButtonClick: () => void;
 
@@ -165,6 +176,12 @@ class Prejoin extends Component<Props, State> {
 
         this.setState({ showError: false });
         this.props.joinConference();
+
+        // const queryData = {
+        //     room: this.props.roomName,
+        //     email: this.props,
+        //     password: this.
+        // }
     }
 
     _onJoinKeyPress: (Object) => void;
@@ -180,6 +197,29 @@ class Prejoin extends Component<Props, State> {
         if (e.key === ' ' || e.key === 'Enter') {
             e.preventDefault();
             this._onJoinButtonClick();
+        }
+    }
+
+    _onLoginButtonClick: () => void;
+    _onLoginButtonClick(e) {
+        if (this.props.showErrorOnJoin) {
+            this.setState({
+                showError: true
+            });
+
+            return;
+        }
+
+        this.setState({ showError: false });
+
+        APP.store.dispatch(openDialog(LoginDialog));
+    }
+
+    _onLoginKeyPress: (Object) => void;
+    _onLoginKeyPress(e) {
+        if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            this._onLoginButtonClick();
         }
     }
 
@@ -338,7 +378,7 @@ class Prejoin extends Component<Props, State> {
             videoTrack
         } = this.props;
         const { _closeDialog, _onDropdownClose, _onJoinButtonClick, _onJoinKeyPress,
-            _onOptionsClick, _setName } = this;
+            _onOptionsClick, _setName, _renderLoginButton } = this;
 
         const extraJoinButtons = this._getExtraJoinButtons();
         let extraButtonsToRender = Object.values(extraJoinButtons).filter((val: Object) =>
@@ -371,7 +411,7 @@ class Prejoin extends Component<Props, State> {
                         readOnly = { readOnlyName }
                         value = { name } />
 
-                    {showError && <div
+                    {showError &&  <div
                         className = 'prejoin-error'
                         data-testid = 'prejoin.errorMessage'>{t('prejoin.errorMissingName')}</div>}
 
@@ -401,6 +441,7 @@ class Prejoin extends Component<Props, State> {
                                 type = 'primary'>
                                 { t('prejoin.joinMeeting') }
                             </ActionButton>
+                            { _renderLoginButton() }
                         </InlineDialog>
                     </div>
                 </div>
@@ -410,6 +451,47 @@ class Prejoin extends Component<Props, State> {
                         onClose = { _closeDialog } />
                 )}
             </PreMeetingScreen>
+        );
+    }
+
+    _renderLoginButton: () => Object;
+    _renderLoginButton() {
+        const {
+            _onLoginButtonClick,
+            _onLoginKeyPress,
+        } = this;
+
+        const { t } = this.props;
+
+        const jwtStore = APP.store.getState()["features/base/jwt"];
+        if (jwtStore) {
+            const jwt = jwtStore.jwt;
+            if (jwt && !validateJwt(jwt).length) {
+                return(
+                    <>
+                    </>
+                );
+            }
+        }
+
+        return (
+            <>
+            <br/>
+            <h3 className='text-center text-white mt-10px mb-10px'>Oder</h3>
+            <br/>
+            <ActionButton
+                ariaLabel = { t('toolbar.login') }
+                ariaPressed = { false }
+                hasOptions = { false }
+                onClick = { _onLoginButtonClick }
+                onKeyPress = { _onLoginKeyPress }
+                onOptionsClick = { () => {} }
+                role = 'button'
+                tabIndex = { 1 }
+                type = 'primary'>
+                    { t('toolbar.login') }
+                </ActionButton>
+            </>
         );
     }
 }

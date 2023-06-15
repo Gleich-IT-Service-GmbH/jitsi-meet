@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import AbstractPollResults from '../AbstractPollResults';
 import type { AbstractProps } from '../AbstractPollResults';
@@ -23,6 +24,8 @@ const PollResults = (props: AbstractProps) => {
         t,
         toggleIsDetailed
     } = props;
+    
+    const jwt = useSelector(state => state['features/base/jwt']?.jwt);
 
     return (
         <div className = 'poll-results'>
@@ -66,6 +69,9 @@ const PollResults = (props: AbstractProps) => {
                     {showDetails ? t('polls.results.hideDetailedResults') : t('polls.results.showDetailedResults')}
                 </a>
                 <a
+                    style={{
+                        display: jwt ? 'inherit' : 'none'
+                    }}
                     className = { 'poll-change-vote-link' }
                     onClick = { changeVote }>
                     {haveVoted ? t('polls.results.changeVote') : t('polls.results.vote')}

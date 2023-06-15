@@ -7,6 +7,8 @@ import {
     UserMediaPermissionsOverlay
 } from './components/web';
 
+declare var interfaceConfig: Object;
+
 /**
  * Returns the list of available platform specific overlays.
  *

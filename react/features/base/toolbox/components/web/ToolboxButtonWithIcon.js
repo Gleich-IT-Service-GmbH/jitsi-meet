@@ -2,16 +2,10 @@
 
 import React from 'react';
 
-import { NOTIFY_CLICK_MODE } from '../../../../toolbox/constants';
 import { Icon } from '../../../icons';
 import { Tooltip } from '../../../tooltip';
 
 type Props = {
-
-    /**
-     * The button's key.
-     */
-    buttonKey?: string,
 
     /**
      * The decorated component (ToolboxButton).
@@ -27,12 +21,6 @@ type Props = {
      * Flag used for disabling the small icon.
      */
     iconDisabled: boolean,
-
-    /**
-     * Notify mode for `toolbarButtonClicked` event -
-     * whether to only notify or to also prevent button click routine.
-     */
-    notifyMode?: string,
 
     /**
      * Click handler for the small icon.
@@ -80,8 +68,6 @@ type Props = {
     iconId: string
 };
 
-declare var APP: Object;
-
 /**
  * Displays the `ToolboxButtonWithIcon` component.
  *
@@ -94,8 +80,6 @@ export default function ToolboxButtonWithIcon(props: Props) {
         icon,
         iconDisabled,
         iconTooltip,
-        buttonKey,
-        notifyMode,
         onIconClick,
         onIconKeyDown,
         styles,
@@ -113,17 +97,7 @@ export default function ToolboxButtonWithIcon(props: Props) {
             = 'settings-button-small-icon settings-button-small-icon--disabled';
     } else {
         iconProps.className = 'settings-button-small-icon';
-        iconProps.onClick = () => {
-            if (typeof APP !== 'undefined' && notifyMode) {
-                APP.API.notifyToolbarButtonClicked(
-                    buttonKey, notifyMode === NOTIFY_CLICK_MODE.PREVENT_AND_NOTIFY
-                );
-            }
-
-            if (notifyMode !== NOTIFY_CLICK_MODE.PREVENT_AND_NOTIFY) {
-                onIconClick();
-            }
-        };
+        iconProps.onClick = onIconClick;
         iconProps.onKeyDown = onIconKeyDown;
         iconProps.role = 'button';
         iconProps.tabIndex = 0;

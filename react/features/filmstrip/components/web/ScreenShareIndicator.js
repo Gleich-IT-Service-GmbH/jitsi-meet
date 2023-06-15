@@ -26,7 +26,7 @@ export default function ScreenShareIndicator(props: Props) {
             icon = { IconShareDesktop }
             iconId = 'share-desktop'
             iconSize = { 15 }
-            tooltipKey = 'videothumbnail.screenSharing'
+            tooltipKey = 'videothumbnail.videomute'
             tooltipPosition = { props.tooltipPosition } />
     );
 }

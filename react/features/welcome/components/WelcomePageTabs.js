@@ -39,10 +39,7 @@ const WelcomePageTabs = ({ disabled }: Props) => {
 
     return (
         <WelcomePage.Navigator
-            screenOptions = {{
-                headerShown: false,
-                ...tabBarOptions
-            }}>
+            tabBarOptions = { tabBarOptions }>
             <WelcomePage.Screen
                 name = { screen.welcome.tabs.recent }
                 options = { recentListTabBarOptions }>

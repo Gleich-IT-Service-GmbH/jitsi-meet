@@ -50,9 +50,77 @@ export function getReplaceParticipant(state: Object): string {
  * @returns {Array<string>} - The list of enabled toolbar buttons.
  */
 export function getToolbarButtons(state: Object): Array<string> {
-    const { toolbarButtons } = state['features/base/config'];
+    const { toolbarButtons, custom } = state['features/base/config'];
+    const { jwt } = state['features/base/jwt'];
 
-    return Array.isArray(toolbarButtons) ? toolbarButtons : TOOLBAR_BUTTONS;
+    if (Array.isArray(toolbarButtons)) {
+        return toolbarButtons;
+    } else {
+        let availableToolbarButtons = [];
+        if (jwt) {
+            availableToolbarButtons = TOOLBAR_BUTTONS
+        } else {
+            /*
+            availableToolbarButtons = [
+                // 'camera',
+                'chat',
+                'closedcaptions',
+                // 'desktop',
+                // 'download',
+                // 'embedmeeting',
+                // 'etherpad',
+                'feedback',
+                'filmstrip',
+                'fullscreen',
+                'hangup',
+                'help',
+                // 'invite',
+                // 'livestreaming',
+                // 'microphone',
+                // 'mute-everyone',
+                // 'mute-video-everyone',
+                'participants-pane',
+                // 'profile',
+                // 'raisehand',
+                // 'recording',
+                // 'security',
+                // 'select-background',
+                'settings',
+                // 'shareaudio',
+                // 'sharedvideo',
+                // 'shortcuts',
+                'stats',
+                'tileview',
+                // 'toggle-camera',
+                'videoquality'
+            ];
+            */
+
+            availableToolbarButtons = [
+                'chat',
+                'closedcaptions',
+                'feedback',
+                'filmstrip',
+                'fullscreen',
+                'hangup',
+                'help',
+                'participants-pane',
+                'settings',
+                'stats',
+                'tileview',
+                'videoquality'
+            ];
+
+            if (custom && custom.allowViewerToSpeak) {
+                availableToolbarButtons.push(
+                    'microphone',
+                    'raisehand'
+                );
+            }
+        }
+
+        return availableToolbarButtons;
+    }
 }
 
 /**
@@ -67,15 +135,4 @@ export function isToolbarButtonEnabled(buttonName: string, state: Object | Array
     const buttons = Array.isArray(state) ? state : getToolbarButtons(state);
 
     return buttons.includes(buttonName);
-}
-
-/**
- * Returns whether audio level measurement is enabled or not.
- *
- * @param {Object} state - The state of the app.
- * @returns {boolean}
- */
-export function areAudioLevelsEnabled(state: Object): boolean {
-    // Default to false for React Native as audio levels are of no interest to the mobile app.
-    return navigator.product !== 'ReactNative' && !state['features/base/config'].disableAudioLevels;
 }

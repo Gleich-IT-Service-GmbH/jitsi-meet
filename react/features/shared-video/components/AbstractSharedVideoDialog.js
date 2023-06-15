@@ -3,7 +3,7 @@
 import { Component } from 'react';
 import type { Dispatch } from 'redux';
 
-import { extractYoutubeIdOrURL } from '../functions';
+import { getYoutubeId } from '../functions';
 
 /**
  * The type of the React {@code Component} props of
@@ -56,15 +56,34 @@ export default class AbstractSharedVideoDialog<S: *> extends Component < Props, 
      * @returns {boolean}
      */
     _onSetVideoLink(link: string) {
-        const { onPostSubmit } = this.props;
-
-        const id = extractYoutubeIdOrURL(link);
-
-        if (!id) {
+        if (!link) {
             return false;
         }
 
-        onPostSubmit(id);
+        const trimmedLink = link.trim();
+
+        if (!trimmedLink) {
+            return false;
+        }
+
+        const { onPostSubmit } = this.props;
+        const youtubeId = getYoutubeId(trimmedLink);
+
+        if (youtubeId) {
+            onPostSubmit(youtubeId);
+
+            return true;
+        }
+
+        // Check if the URL is valid, native may crash otherwise.
+        try {
+            // eslint-disable-next-line no-new
+            new URL(trimmedLink);
+        } catch (_) {
+            return false;
+        }
+
+        onPostSubmit(trimmedLink);
 
         return true;
     }
